@@ -1,0 +1,49 @@
+.markdown-editor-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .markdown-editor {
+    position: relative;
+    background-color: transparent;  /* Transparent bakgrund för att visa förhandsgranskningen */
+    color: transparent;  /* Gör texten osynlig */
+    caret-color: black;  /* Behåll markörens färg för att visa var användaren skriver */
+    z-index: 2;  /* Lägg textarea ovanpå preview */
+    width: 100%;
+    height: 100%;
+    resize: none; /* Förhindra att användaren kan ändra storlek på textområdet */
+  }
+  
+  /* Markdown-förhandsgranskning som ligger direkt ovanpå textarea */
+  .markdown-preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 8px;
+    z-index: 1;  /* Placera preview bakom textarea */
+    pointer-events: none;  /* Förhindra interaktion med förhandsgranskningen */
+    white-space: pre-wrap;  /* Behåll radbrytningar som i textarea */
+    overflow-wrap: break-word;  /* Hantera långa ord korrekt */
+  }
+  
+  .markdown-preview h1, 
+  .markdown-preview h2, 
+  .markdown-preview h3 {
+    font-weight: bold;
+  }
+  
+  .markdown-preview p {
+    margin-bottom: 0.5rem;
+  }
+  
+  .markdown-preview ul {
+    padding-left: 20px;
+  }
+  
+  .markdown-preview li {
+    margin-bottom: 0.3rem;
+  }
+  
