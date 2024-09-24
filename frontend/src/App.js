@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Post from './components/Post';
 import CreatePost from './components/CreatePost';
+import EditPost from './components/EditPost';
 import { AuthProvider } from './AuthContext';  // Importera AuthProvider
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/edit/:id" element={<EditPost />} />  {/* Route för redigering av inlägg */}
             <Route path="/register" element={<Register />} />
             <Route path="/posts/:id" element={<Post />} />
             <Route path="/create" element={<CreatePost />} />

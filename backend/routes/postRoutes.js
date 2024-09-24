@@ -1,11 +1,18 @@
 const express = require('express');
-const { createPost, getPosts, getPostById } = require('../controllers/postController');
+const { deletePost, getPosts, createPost, getPostById, updatePost } = require('../controllers/postController');
 const { protect, admin } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
-router.post('/', protect, admin, createPost);  // Endast admin kan skapa inlägg
-router.get('/', getPosts);  // Hämta alla inlägg
-router.get('/:id', getPostById);  // Hämta specifikt inlägg
+router.route('/')
+  .get(getPosts)
+  .post(protect, createPost);  // Skapa ett nytt inlägg (skyddad rutt)
+
+
+router.route('/:id')
+  .get(getPostById)
+  .put(protect, updatePost)  // Uppdatera ett inlägg (PUT)
+  .delete(protect, deletePost);  // Ta bort ett inlägg (DELETE)
+
 
 module.exports = router;
