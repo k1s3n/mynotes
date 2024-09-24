@@ -14,7 +14,7 @@ app.use(express.json());
 
 // Middleware för att hantera CORS
 app.use(cors({
-    origin: 'http://localhost:3000'  // Tillåt förfrågningar från React-appen
+    origin: process.env.FRONTEND_URL  // Tillåt förfrågningar från React-appen
   }));
 
 app.use('/api/posts', postRoutes);
