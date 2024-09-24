@@ -1,13 +1,19 @@
 import React from 'react';
-import PostList from '../components/PostList';  // Säkerställ att PostList är korrekt
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import PostList from '../components/PostList';  // Import PostList
+import PostOverview from '../components/PostOverview';  // Import PostOverview
+import Post from '../components/Post';  // Import Post component for individual post view
 
-const Home = () => {
+const App = () => {
   return (
-    <div>
-    <h1>Welcome to My Blog</h1>
-      <PostList />  {/* Renderar komponenten som listar alla inlägg */}
-    </div>
+    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0px' }}>
+        {/* PostOverview on the left */}
+        <PostOverview />
+
+        {/* PostList on the right */}
+        <PostList />
+      </div>
   );
 };
 
-export default Home;
+export default App;

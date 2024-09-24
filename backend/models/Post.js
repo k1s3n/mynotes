@@ -4,7 +4,6 @@ const PostSchema = new mongoose.Schema({
   title: { type: String, required: true },
   content: { type: String, required: true },  // Markdown-innehållet
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },  // Knyt till användare
-  createdAt: { type: Date, default: Date.now },
-});
+}, { timestamps: true });  // timestamps skapar och hanterar både createdAt och updatedAt
 
 module.exports = mongoose.model('Post', PostSchema);

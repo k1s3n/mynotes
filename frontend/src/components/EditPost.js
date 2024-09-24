@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import ReactMde from 'react-mde';
 import * as Showdown from 'showdown';
+import 'react-mde/lib/styles/css/react-mde-all.css';
 import { getPostById, updatePost } from '../services/api';  // Importera updatePost API-anropet
 
 const EditPost = () => {
@@ -12,6 +13,7 @@ const EditPost = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const converter = new Showdown.Converter();
+  const [editMessage, seteditMessage] = useState('');
 
   // Hämta det aktuella inlägget när komponenten laddas
   useEffect(() => {
@@ -39,7 +41,8 @@ const EditPost = () => {
 
       // Uppdatera inlägget
       await updatePost(id, { title, content });
-      navigate(`/posts/${id}`);  // Navigera tillbaka till inlägget efter uppdatering
+      seteditMessage('Post have been updated successfully!');
+      setTimeout(() => navigate(`/posts/${id}`), 2000);
     } catch (err) {
       setError('Failed to update the post');
     }
@@ -47,6 +50,7 @@ const EditPost = () => {
 
   return (
     <div className="container mt-5">
+        {editMessage && <div className="alert alert-success mt-3">{editMessage}</div>}
       <h1>Edit Post</h1>
 
       {error && <div className="alert alert-danger">{error}</div>}
@@ -64,20 +68,30 @@ const EditPost = () => {
           />
         </div>
 
+        {/* Markdown-editor utan preview-knapp */}
         <div className="mb-3">
           <label htmlFor="content" className="form-label">Content (Markdown supported)</label>
           <ReactMde
             value={content}
-            onChange={setContent}
+            onChange={setContent}  // Uppdaterar innehållet i realtid
             selectedTab={selectedTab}
             onTabChange={setSelectedTab}
-            generateMarkdownPreview={(markdown) => Promise.resolve(converter.makeHtml(markdown))}
+            generateMarkdownPreview={() => Promise.resolve('')}  // Inaktivera preview-knappen
           />
         </div>
 
+        {/* Live-förhandsgranskning direkt under textfältet */}
+        <div className="mb-3">
+          <label htmlFor="preview" className="form-label">Live Preview</label>
+          <div className="border p-3" id="preview">
+            <div dangerouslySetInnerHTML={{ __html: converter.makeHtml(content) }} />
+          </div>
+        </div>
+        
         <button type="submit" className="btn btn-primary">Update Post</button>
       </form>
     </div>
+    
   );
 };
 

@@ -1,42 +1,44 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getPosts } from '../services/api';  // Säkerställ att du har en korrekt API-funktion för att hämta inlägg
+import { getPosts } from '../services/api';  // API-anrop för att hämta alla inlägg
+import { capitalizeTitle } from '../utils/utils';
 
 const PostList = () => {
-  const [posts, setPosts] = useState([]);  // Använd state för att hantera inläggen
-  const [loading, setLoading] = useState(true);  // Lägg till en loading-indikator
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const result = await getPosts();  // Hämta inlägg från backend
+        const result = await getPosts();
         setPosts(result);
-        setLoading(false);  // Sätt loading till false när datan har laddats
       } catch (error) {
         console.error('Failed to fetch posts:', error);
-        setLoading(false);
       }
     };
-    fetchPosts();  // Kör när komponenten mountas
+
+    fetchPosts();
   }, []);
 
-  if (loading) {
-    return <div>Loading posts...</div>;  // Visa en loading-indikator medan inläggen laddas
-  }
+
+  if (!posts.length) return <div>Loading...</div>;
 
   return (
     <div>
-      {posts.length === 0 ? (
-        <p>No posts available</p>  // Visa ett meddelande om det inte finns några inlägg
-      ) : (
-        <ul>
-          {posts.map(post => (
+      <center><h3>All Posts</h3></center>
+      <ul>
+        {posts.map((post) => {
+          const createdAtLocalDate = new Date(post.createdAt).toLocaleDateString();  // Formatera createdAt till lokal tid
+          const capitalizedTitle = capitalizeTitle(post.title);  // Använd capitalizeTitle
+          return (
             <li key={post._id}>
-              <Link to={`/posts/${post._id}`}>{post.title}</Link>  {/* Länk till det enskilda inlägget */}
+              <Link to={`/posts/${post._id}`} className="nav-link">
+                {capitalizedTitle}
+              </Link> 
+                {/* Visa datumet */}
             </li>
-          ))}
-        </ul>
-      )}
+          );
+        })}
+      </ul>
     </div>
   );
 };

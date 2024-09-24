@@ -64,7 +64,7 @@ const Register = () => {
             required 
           />
         </div>
-        <div className="form-check mb-3">
+        {/*<div className="form-check mb-3">
           <input 
             type="checkbox" 
             className="form-check-input" 
@@ -73,7 +73,7 @@ const Register = () => {
             onChange={() => setIsAdmin(!isAdmin)} 
           />
           <label className="form-check-label" htmlFor="isAdmin">Register as Admin</label>
-        </div>
+        </div>*/}
         <button type="submit" className="btn btn-primary">Register</button>
       </form>
     </div>
