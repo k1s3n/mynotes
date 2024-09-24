@@ -4,6 +4,7 @@ import ReactMde from 'react-mde';
 import * as Showdown from 'showdown';
 import 'react-mde/lib/styles/css/react-mde-all.css';  // Importera stilar för react-mde
 import { createPost } from '../services/api';
+import '../styles/markdownStyle.css';
 
 const CreatePost = () => {
   const [title, setTitle] = useState('');
@@ -77,7 +78,7 @@ const CreatePost = () => {
         </div>
 
         {/* Live-förhandsgranskning direkt under textfältet */}
-        <div className="mb-3">
+        <div className="mb-3 markdown-content">
           <label htmlFor="preview" className="form-label">Live Preview</label>
           <div className="border p-3" id="preview">
             <div dangerouslySetInnerHTML={{ __html: converter.makeHtml(content) }} />

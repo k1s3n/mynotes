@@ -43,7 +43,7 @@ const Post = () => {
   const capitalizedTitle = capitalizeTitle(post.title);
 
   return (
-    <div>
+    <div className='markdown-content'>
      {deleteMessage && <div className="alert alert-success mt-3">{deleteMessage}</div>}
       <h3>{capitalizedTitle}</h3>
       <p>Created at: {createdAtLocalTime}</p>

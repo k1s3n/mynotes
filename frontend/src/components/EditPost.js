@@ -4,6 +4,7 @@ import ReactMde from 'react-mde';
 import * as Showdown from 'showdown';
 import 'react-mde/lib/styles/css/react-mde-all.css';
 import { getPostById, updatePost } from '../services/api';  // Importera updatePost API-anropet
+import '../styles/markdownStyle.css';
 
 const EditPost = () => {
   const { id } = useParams();
@@ -68,8 +69,8 @@ const EditPost = () => {
           />
         </div>
 
-        {/* Markdown-editor utan preview-knapp */}
-        <div className="mb-3">
+         {/* Markdown-editor utan preview-knapp */}
+         <div className="mb-3">
           <label htmlFor="content" className="form-label">Content (Markdown supported)</label>
           <ReactMde
             value={content}
@@ -81,7 +82,7 @@ const EditPost = () => {
         </div>
 
         {/* Live-förhandsgranskning direkt under textfältet */}
-        <div className="mb-3">
+        <div className="mb-3 markdown-content">
           <label htmlFor="preview" className="form-label">Live Preview</label>
           <div className="border p-3" id="preview">
             <div dangerouslySetInnerHTML={{ __html: converter.makeHtml(content) }} />

@@ -1,0 +1,24 @@
+.markdown-content img {
+    display: block;
+    margin: 0 auto;
+    max-width: 30%;  /* Ensures the image doesn't overflow the container */
+    height: auto;  /* Maintains aspect ratio */
+    border-radius: 10px;
+  }
+/* Float image to the right */
+.img-right {
+    float: right;
+    margin-left: 20px;
+    max-width: 50%;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  /* Float image to the left */
+  .img-left {
+    float: left;
+    margin-right: 20px;
+    max-width: 50%;
+    padding: 10px;
+    border-radius: 10px;
+  }  
