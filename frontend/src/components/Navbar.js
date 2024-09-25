@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from '../AuthContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebookF, faTwitter, faInstagram, faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';  // Import brand icons
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -8,8 +10,13 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">My DevOps Journey </Link>
-        
+        <Link className="navbar-brand" to="/">My DevOps Journey | </Link>
+        <a className="btn btn-outline-dark btn-floating m-1" href="https://github.com/k1s3n/" target='_blank' role="button">
+            <FontAwesomeIcon icon={faGithub} />
+          </a>
+          <a className="btn btn-outline-dark btn-floating m-1" href="https://www.linkedin.com" target='_blank' role="button">
+            <FontAwesomeIcon icon={faLinkedin} />
+          </a>
         {/* Toggler button for small screens */}
         <button 
           className="navbar-toggler" 
@@ -34,16 +41,16 @@ const Navbar = () => {
             {!user ? (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/login">Login</Link>
+                  <Link className="nav-link" to="/register">Register</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/register">Register</Link>
+                  <Link className="nav-link" to="/login">Login</Link>
                 </li>
               </>
             ) : (
               <li className="nav-item">
                 <button
-                  className="btn btn-link nav-link"
+                  className="btn btn-danger mt-1 btn-sm"
                   onClick={() => {
                     logout();
                   }}
