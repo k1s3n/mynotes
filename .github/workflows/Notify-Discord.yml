@@ -1,0 +1,60 @@
+name: Notify Discord
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  notify-discord:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Get commit message
+        id: commit_message
+        run: echo "COMMIT_MESSAGE=$(git log -1 --pretty=format:'%s')" >> $GITHUB_ENV
+
+      - name: Get author name
+        id: author_name
+        run: echo "AUTHOR_NAME=$(git log -1 --pretty=format:'%an')" >> $GITHUB_ENV
+
+      - name: Set event context
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            echo "PR_URL=${{ github.event.pull_request.html_url }}" >> $GITHUB_ENV
+            echo "AFFECTED_BRANCH=${{ github.event.pull_request.base.ref }}" >> $GITHUB_ENV
+          else
+            echo "PR_URL=" >> $GITHUB_ENV
+            echo "AFFECTED_BRANCH=${{ github.ref }}" >> $GITHUB_ENV
+          fi
+
+      - name: Notify Discord on success 
+        if: success()
+        uses: discord-actions/message@v2
+        with:
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          message: |
+            **Build Status**: **\*\*SUCCESS\*\***:thumbsup:
+            **Commit Message**: ${{ env.COMMIT_MESSAGE }}
+            **Author**: ${{ env.AUTHOR_NAME }}
+            **Affected Branch**: ${{ env.AFFECTED_BRANCH }}
+            **Commit URL**: [View commit](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
+            ${{ env.PR_URL && format('\n**Pull Request URL**: {0}', env.PR_URL) }}
+
+      - name: Notify Discord on failure
+        if: failure()
+        uses: discord-actions/message@v2
+        with:
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          message: |
+            **Build Status**:**\*\*FAILURE\*\***:thumbsdown:
+            **Commit Message**: ${{ env.COMMIT_MESSAGE }}
+            **Author**: ${{ env.AUTHOR_NAME }}
+            **Affected Branch**: ${{ env.AFFECTED_BRANCH }}
+            **Commit URL**: [View commit](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
+            ${{ env.PR_URL && format('\n**Pull Request URL**: {0}', env.PR_URL) }}
