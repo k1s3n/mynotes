@@ -8,11 +8,16 @@ import Post from './components/Post';
 import CreatePost from './components/CreatePost';
 import EditPost from './components/EditPost';
 import { AuthProvider } from './AuthContext';  // Importera AuthProvider
+import Header from './components/Header';
+import Footer from './components/Footer';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 function App() {
   return (
     <AuthProvider>
       <Router>
+      <Header />
         <Navbar />
         <div className="container mt-5">
           <Routes>
@@ -24,6 +29,7 @@ function App() {
             <Route path="/create" element={<CreatePost />} />
           </Routes>
         </div>
+        <Footer />
       </Router>
     </AuthProvider>
   );

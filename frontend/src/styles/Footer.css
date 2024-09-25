@@ -1,0 +1,32 @@
+/* Basic footer styling */
+.footer {
+    background-color: #f8f9fa;
+    padding: 1.5rem 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .footer a {
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .footer a:hover {
+    color: #007bff;
+    text-decoration: underline;
+  }
+  
+  .footer .btn {
+    margin: 0 5px;
+  }
+  
+  .footer .text-dark {
+    font-weight: bold;
+  }
+  
+  .footer .fab {
+    font-size: 1.2rem;
+  }
+  

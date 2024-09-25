@@ -30,7 +30,7 @@ const PostOverview = () => {
         <div key={post._id} className="markdown-content">
           <h3>{post.title}</h3>
           <ReactMarkdown>{post.content.slice(0, 300)}</ReactMarkdown>  {/* Show only the first 100 characters */}
-          <Link className="btn btn-secondary btn-sm" to={`/posts/${post._id}`}>Read More</Link>
+          <Link style={{ marginBottom: '20px' }} className="btn btn-secondary btn-sm" to={`/posts/${post._id}`}>Read More</Link>
         </div>
       ))}
     </div>

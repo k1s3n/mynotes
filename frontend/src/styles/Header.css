@@ -1,0 +1,7 @@
+/* Style for the header image */
+.header-image img {
+    
+    width: 100%;  /* Make the image fill the container width */
+    aspect-ratio: 3/1; /* Maintain aspect ratio */
+    object-fit: cover;
+  }
