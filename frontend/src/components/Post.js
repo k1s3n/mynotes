@@ -45,8 +45,8 @@ const Post = () => {
   return (
     <div className='markdown-content'>
      {deleteMessage && <div className="alert alert-success mt-3">{deleteMessage}</div>}
-      <h3>{capitalizedTitle}</h3>
-      <p>Created at: {createdAtLocalTime}</p>
+      <h3 className='text-primary'>{capitalizedTitle}</h3>
+      <p className='text-secondary'>Created at: {createdAtLocalTime}</p>
 
       <ReactMarkdown>{post.content}</ReactMarkdown>
       <Link to={`/`} className="btn btn-secondary mt-3 btn-sm">Return</Link>

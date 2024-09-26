@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from '../AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebookF, faTwitter, faInstagram, faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';  // Import brand icons
+import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';  // Import brand icons
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -11,10 +11,10 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">My DevOps Journey | </Link>
-        <a className="btn btn-outline-dark btn-floating m-1" href="https://github.com/k1s3n/" target='_blank' role="button">
+        <a className="btn btn-outline-dark btn-floating m-1" href="https://github.com/k1s3n/" target='_blank' rel="noreferrer" role="button">
             <FontAwesomeIcon icon={faGithub} />
           </a>
-          <a className="btn btn-outline-dark btn-floating m-1" href="https://www.linkedin.com" target='_blank' role="button">
+          <a className="btn btn-outline-dark btn-floating m-1" href="https://www.linkedin.com" target='_blank' rel="noreferrer" role="button">
             <FontAwesomeIcon icon={faLinkedin} />
           </a>
         {/* Toggler button for small screens */}
