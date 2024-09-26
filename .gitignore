@@ -132,3 +132,6 @@ dist
 #docker
 .yaml
 .yml
+Dockerfile
+Dockerfile.dev
+hashPassword.js
