@@ -11,7 +11,6 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">My DevOps Journey </Link>
-        
         {/* Toggler button for small screens */}
         <button 
           className="navbar-toggler" 
@@ -49,7 +48,7 @@ const Navbar = () => {
                 </li>
               </>
             ) : (
-              <li className="nav-item">
+              <Link className="nav-item">
                 <button
                   className="btn btn-danger mt-1 btn-sm"
                   onClick={() => {
@@ -58,7 +57,7 @@ const Navbar = () => {
                 >
                   Logout
                 </button>
-              </li>
+              </Link>
             )}
           </ul>
         </div>

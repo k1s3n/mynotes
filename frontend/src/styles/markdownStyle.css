@@ -5,20 +5,24 @@
     height: auto;  /* Maintains aspect ratio */
     border-radius: 10px;
   }
-/* Float image to the right */
-.img-right {
-    float: right;
-    margin-left: 20px;
-    max-width: 50%;
-    padding: 10px;
-    border-radius: 10px;
-  }
-  
-  /* Float image to the left */
-  .img-left {
-    float: left;
-    margin-right: 20px;
-    max-width: 50%;
-    padding: 10px;
-    border-radius: 10px;
-  }  
+/* Default image style (centered) */
+img.markdown-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+
+/* Left-aligned image */
+img.markdown-image-left {
+  float: left;
+  margin-right: 15px;
+  max-width: 20%;
+}
+
+/* Right-aligned image */
+img.markdown-image-right {
+  float: right;
+  margin-left: 15px;
+  max-width: 20%;
+}

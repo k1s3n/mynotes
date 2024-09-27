@@ -6,7 +6,7 @@ const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isAdmin, setIsAdmin] = useState(false);
+  // const [isAdmin, setIsAdmin] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -17,7 +17,7 @@ const Register = () => {
         name, 
         email, 
         password, 
-        isAdmin 
+      //  isAdmin 
       });
       localStorage.setItem('token', response.data.token);
       navigate('/');
@@ -27,7 +27,7 @@ const Register = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>Register</h2>
       {error && <p className="text-danger">{error}</p>}
       <form onSubmit={handleSubmit}>

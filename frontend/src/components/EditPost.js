@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import ReactMde from 'react-mde';
-import * as Showdown from 'showdown';
+import { getPostById, updatePost } from '../services/api';
+import { convertMarkdownToHtml } from '../utils/markdownUtils';
 import 'react-mde/lib/styles/css/react-mde-all.css';
-import { getPostById, updatePost } from '../services/api';  // Importera updatePost API-anropet
 import '../styles/markdownStyle.css';
 
 const EditPost = () => {
@@ -13,10 +13,9 @@ const EditPost = () => {
   const [selectedTab, setSelectedTab] = useState('write');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const converter = new Showdown.Converter();
-  const [editMessage, seteditMessage] = useState('');
+  const [editMessage, setEditMessage] = useState('');
 
-  // Hämta det aktuella inlägget när komponenten laddas
+  // Fetch the post data when the component loads
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -40,9 +39,9 @@ const EditPost = () => {
         return;
       }
 
-      // Uppdatera inlägget
+      // Update the post
       await updatePost(id, { title, content });
-      seteditMessage('Post have been updated successfully!');
+      setEditMessage('Post has been updated successfully!');
       setTimeout(() => navigate(`/posts/${id}`), 2000);
     } catch (err) {
       setError('Failed to update the post');
@@ -51,7 +50,7 @@ const EditPost = () => {
 
   return (
     <div className="container mt-5">
-        {editMessage && <div className="alert alert-success mt-3">{editMessage}</div>}
+      {editMessage && <div className="alert alert-success mt-3">{editMessage}</div>}
       <h1>Edit Post</h1>
 
       {error && <div className="alert alert-danger">{error}</div>}
@@ -69,30 +68,29 @@ const EditPost = () => {
           />
         </div>
 
-         {/* Markdown-editor utan preview-knapp */}
-         <div className="mb-3">
+        {/* Markdown-editor */}
+        <div className="mb-3">
           <label htmlFor="content" className="form-label">Content (Markdown supported)</label>
           <ReactMde
             value={content}
-            onChange={setContent}  // Uppdaterar innehållet i realtid
+            onChange={setContent}  // Real-time content update
             selectedTab={selectedTab}
             onTabChange={setSelectedTab}
-            generateMarkdownPreview={() => Promise.resolve('')}  // Inaktivera preview-knappen
+            generateMarkdownPreview={() => Promise.resolve('')}  // Disable preview button
           />
         </div>
 
-        {/* Live-förhandsgranskning direkt under textfältet */}
+        {/* Live Preview */}
         <div className="mb-3 markdown-content">
           <label htmlFor="preview" className="form-label">Live Preview</label>
           <div className="border p-3" id="preview">
-            <div dangerouslySetInnerHTML={{ __html: converter.makeHtml(content) }} />
+            <div dangerouslySetInnerHTML={{ __html: convertMarkdownToHtml(content) }} />
           </div>
         </div>
         
         <button type="submit" className="btn btn-primary">Update Post</button>
       </form>
     </div>
-    
   );
 };
 

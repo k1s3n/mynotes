@@ -5,6 +5,7 @@ import '../styles/Home.css';
 
 const App = () => {
   return (
+    
     <div className="app-container">
       <div></div>
         {/* PostOverview on the left */}
@@ -12,7 +13,7 @@ const App = () => {
 
         {/* PostList on the right */}
         <PostList />
-      </div>
+        </div>
   );
 };
 
