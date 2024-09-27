@@ -24,10 +24,9 @@ const PostList = () => {
 
   return (
     <div>
-      <center><h3>All Posts</h3></center>
+      <h3 align="center">All Posts</h3>
       <ul>
         {posts.map((post) => {
-          const createdAtLocalDate = new Date(post.createdAt).toLocaleDateString();  // Formatera createdAt till lokal tid
           const capitalizedTitle = capitalizeTitle(post.title);  // Använd capitalizeTitle
           return (
             <li key={post._id}>

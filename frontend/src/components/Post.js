@@ -43,12 +43,13 @@ const Post = () => {
   const capitalizedTitle = capitalizeTitle(post.title);
 
   return (
-    <div className='markdown-content'>
+    <div className='container mt-5'>
+    <div className='markdown-content'> {/* Markdown-innehåll */}
      {deleteMessage && <div className="alert alert-success mt-3">{deleteMessage}</div>}
       <h3 className='text-primary'>{capitalizedTitle}</h3>
       <p className='text-secondary'>Created at: {createdAtLocalTime}</p>
-
       <ReactMarkdown>{post.content}</ReactMarkdown>
+      <p className="text-muted" align="center">Posted by: {post.user?.name}</p>
       <Link to={`/`} className="btn btn-secondary mt-3 btn-sm">Return</Link>
       {canEditOrDelete && (
         <>
@@ -56,7 +57,7 @@ const Post = () => {
           <button onClick={handleDelete} className="btn btn-danger mt-3 btn-sm">Delete Post</button>
         </>
       )}
-
+    </div>
     </div>
   );
 };

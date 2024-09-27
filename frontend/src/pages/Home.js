@@ -1,12 +1,12 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PostList from '../components/PostList';  // Import PostList
 import PostOverview from '../components/PostOverview';  // Import PostOverview
-import Post from '../components/Post';  // Import Post component for individual post view
+import '../styles/Home.css';
 
 const App = () => {
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0px' }}>
+    <div className="app-container">
+      <div></div>
         {/* PostOverview on the left */}
         <PostOverview />
 

@@ -19,7 +19,7 @@ function App() {
       <Router>
       <Header />
         <Navbar />
-        <div className="container mt-5">
+        <div className="container-fluid mt-5">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />

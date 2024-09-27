@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import ReactMde from 'react-mde';
 import * as Showdown from 'showdown';
 import 'react-mde/lib/styles/css/react-mde-all.css';  // Importera stilar för react-mde
@@ -84,7 +84,7 @@ const CreatePost = () => {
             <div dangerouslySetInnerHTML={{ __html: converter.makeHtml(content) }} />
           </div>
         </div>
-
+        <Link to={`/`} className="btn btn-secondary">Return</Link>
         <button type="submit" className="btn btn-primary">Create</button>
       </form>
     </div>

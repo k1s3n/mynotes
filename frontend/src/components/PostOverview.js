@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';  // Import react-markdown to render Markdown
 import '../styles/markdownStyle.css';
 
-const PostOverview = () => {
+const PostOverview = (user) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -23,19 +23,16 @@ const PostOverview = () => {
   if (!posts.length) return <div>Loading...</div>;
 
   return (
-    <div style={{ float: 'left', width: '100%', padding: '0px' }}>
-      <center><h2>Post Overview</h2></center>
-      <br></br>
+    <div>
       {posts.map((post) => (
         <div key={post._id} className="markdown-content">
           <h3>{post.title}</h3>
-          
           <ReactMarkdown>
           {post.content.length > 400 
             ? `${post.content.slice(0, 400)}...` 
             : post.content}
           </ReactMarkdown>
-          
+
           <Link style={{marginBottom: '20px'}} className="btn btn-secondary btn-sm" to={`/posts/${post._id}`}>Read More</Link>
         </div>
       ))}

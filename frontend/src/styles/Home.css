@@ -1,0 +1,51 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Flex container */
+  .app-container {
+    display: flex;
+    justify-content: space-between;  /* Distribute items evenly */
+    gap: 20px;  /* Optional: add space between the components */
+    width: 100%;  /* Ensure the container takes full width */
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* First child: 25% width */
+  .app-container > div:first-child {
+    flex: 0 0 20%; /* Flex-grow: 0, Flex-shrink: 0, Flex-basis: 25% */
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Second child (PostOverview): 50% width */
+  .app-container > div:nth-child(2) {
+    flex: 0 0 50%; /* Flex-grow: 0, Flex-shrink: 0, Flex-basis: 50% */
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Third child (PostList): 25% width */
+  .app-container > div:nth-child(3) {
+    flex: 0 0 25%; /* Flex-grow: 0, Flex-shrink: 0, Flex-basis: 25% */
+    padding: 0;
+    margin: 0;
+  }
+    
+  /* Adjust for smaller screens */
+  @media (max-width: 768px) {
+    .app-container {
+      flex-direction: column;  /* Stack components vertically */
+      gap: 10px;  /* Adjust gap for mobile */
+    }
+  
+    .app-container > div {
+      width: 100%;  /* Ensure each component takes full width on mobile */
+    }
+  }
+  

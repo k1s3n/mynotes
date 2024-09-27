@@ -10,13 +10,8 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">My DevOps Journey | </Link>
-        <a className="btn btn-outline-dark btn-floating m-1" href="https://github.com/k1s3n/" target='_blank' rel="noreferrer" role="button">
-            <FontAwesomeIcon icon={faGithub} />
-          </a>
-          <a className="btn btn-outline-dark btn-floating m-1" href="https://www.linkedin.com" target='_blank' rel="noreferrer" role="button">
-            <FontAwesomeIcon icon={faLinkedin} />
-          </a>
+        <Link className="navbar-brand" to="/">My DevOps Journey </Link>
+        
         {/* Toggler button for small screens */}
         <button 
           className="navbar-toggler" 
@@ -29,9 +24,15 @@ const Navbar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-
+         
         {/* Collapsible part of the navbar */}
         <div className="collapse navbar-collapse" id="navbarNav">
+          <a className="btn btn-outline-dark btn-floating m-1" href="https://github.com/k1s3n/" target='_blank' rel="noreferrer" role="button">
+            <FontAwesomeIcon icon={faGithub} />
+          </a>
+          <a className="btn btn-outline-dark btn-floating m-1" href="https://www.linkedin.com/in/christoffer-rehnmark-15a6b5223/" target='_blank' rel="noreferrer" role="button">
+            <FontAwesomeIcon icon={faLinkedin} />
+          </a>
           <ul className="navbar-nav ms-auto">
             {user && user.isAdmin && (
               <li className="nav-item">
