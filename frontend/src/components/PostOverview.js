@@ -4,14 +4,16 @@ import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';  // Import react-markdown to render Markdown
 import '../styles/markdownStyle.css';
 
-const PostOverview = (user) => {
+const PostOverview = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const result = await getPosts();
-        setPosts(result);
+        // sort post by latest
+        const sortedPosts = result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        setPosts(sortedPosts);
       } catch (error) {
         console.error('Failed to fetch posts:', error);
       }
