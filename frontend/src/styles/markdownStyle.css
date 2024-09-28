@@ -34,3 +34,16 @@ img.markdown-image-right {
   margin-top: 10px;
   margin-bottom: 20px;
 }
+
+
+.hashtag-button {
+  background: none;
+  border: none;
+  color: #007bff;
+  text-decoration: none;
+  cursor: pointer;
+}
+.hashtag-button:hover {
+  text-decoration: underline;;
+}
+

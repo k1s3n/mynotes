@@ -28,7 +28,7 @@ const Register = () => {
 
   return (
     <div className="container">
-      <h2>Register</h2>
+      <h3 align="center">Register</h3>
       {error && <p className="text-danger">{error}</p>}
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
@@ -74,7 +74,7 @@ const Register = () => {
           />
           <label className="form-check-label" htmlFor="isAdmin">Register as Admin</label>
         </div>*/}
-        <button type="submit" className="btn btn-primary">Register</button>
+        <button type="submit" className="btn btn-primary btn-sm">Register</button>
       </form>
     </div>
   );

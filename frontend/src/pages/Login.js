@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from '../AuthContext';  // Importera AuthContext
-
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,7 +33,7 @@ const Login = () => {
 
   return (
     <div className='container'>
-      <h2>Login</h2>
+      <h3 align="center">Login</h3>
       {error && <p className="text-danger">{error}</p>}
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
@@ -59,7 +58,7 @@ const Login = () => {
             required 
           />
         </div>
-        <button type="submit" className="btn btn-primary">Login</button>
+        <button type="submit" className="btn btn-success btn-sm">Login</button>
       </form>
     </div>
   );
