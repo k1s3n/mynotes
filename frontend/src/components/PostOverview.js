@@ -9,6 +9,7 @@ const PostOverview = () => {
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [selectedTag, setSelectedTag] = useState(null); // Keep track of the selected hashtag
   const postContentRefs = useRef([]);  // Ref to store post content elements
+  const contentLengthLimit = 600; // Content limit, change this value as needed
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -59,6 +60,20 @@ const PostOverview = () => {
     });
   };
 
+  // Function to trim content and check if "Read More" should be shown
+  const getTrimmedContent = (content) => {
+    if (content.length > contentLengthLimit) {
+      return {
+        trimmedContent: `${content.slice(0, contentLengthLimit)}...`,
+        isTrimmed: true,
+      };
+    }
+    return {
+      trimmedContent: content,
+      isTrimmed: false,
+    };
+  };
+
   if (!filteredPosts.length) return <div>No posts found...</div>;
 
   return (
@@ -72,10 +87,9 @@ const PostOverview = () => {
 
       {filteredPosts.map((post, index) => {
         const localDate = new Date(post.createdAt).toLocaleString(); // Locale-aware date and time
-        // Trim content to 400 characters with "..."
-        const trimmedContent = post.content.length > 400
-          ? `${post.content.slice(0, 400)}...`
-          : post.content;
+
+        // Get trimmed content and check if it was trimmed
+        const { trimmedContent, isTrimmed } = getTrimmedContent(post.content);
 
         // Convert markdown to HTML
         let htmlContent = convertMarkdownToHtml(trimmedContent);
@@ -95,10 +109,13 @@ const PostOverview = () => {
               ref={(el) => (postContentRefs.current[index] = el)}  // Attach ref to each content div
               dangerouslySetInnerHTML={{ __html: htmlContent }}  // Inject the converted HTML
             />
-
-            <Link style={{ marginBottom: '20px' }} className="btn btn-secondary btn-sm" to={`/posts/${post._id}`}>
-              Read More...
-            </Link>
+            <div className='clearfix'></div>
+            {/* Show the "Read More" button only if the content was trimmed */}
+            {isTrimmed && (
+              <Link className="btn btn-secondary btn-sm read-more" style={{ marginTop: '10px' }} to={`/posts/${post._id}`}>
+                Read More
+              </Link>
+            )}
           </div>
         );
       })}

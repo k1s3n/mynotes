@@ -23,7 +23,7 @@ img.markdown-image-left {
 /* Right-aligned image */
 img.markdown-image-right {
   float: right;
-  margin-left: 15px;
+  margin-left: 5px;
   max-width: 20%;
 }
 
@@ -47,3 +47,12 @@ img.markdown-image-right {
   text-decoration: underline;;
 }
 
+.read-more {
+  margin-bottom: 20px;
+}
+
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
