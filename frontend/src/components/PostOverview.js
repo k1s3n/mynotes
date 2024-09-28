@@ -5,7 +5,7 @@ import '../styles/markdownStyle.css';
 import AuthContext from '../AuthContext';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';  // Import the trash icon
+import { faTrashAlt, faEdit, faCancel } from '@fortawesome/free-solid-svg-icons';  // Import the trash icon
 
 
 const PostOverview = () => {
@@ -102,9 +102,11 @@ const PostOverview = () => {
   return (
     <div>
       {selectedTag && (
+        <div className='sticky-element'>
         <div className="alert alert-info">
           Showing posts tagged with <strong>#{selectedTag}</strong>{' '}
-          <button className='btn btn-danger btn-sm float-end' onClick={() => { setFilteredPosts(posts); setSelectedTag(null); }}>Clear Filter</button>
+          <button className='btn btn-danger btn-sm float-end' onClick={() => { setFilteredPosts(posts); setSelectedTag(null); }}><FontAwesomeIcon icon={faCancel} /></button>
+        </div>
         </div>
       )}
       {deleteMessage && <div className="alert alert-success mt-3">{deleteMessage}</div>}
@@ -128,7 +130,7 @@ const PostOverview = () => {
               {canEditOrDelete && (
               
                 <span>
-                  <Link to={`/edit/${post._id}`} className="btn btn-outline-primary btn-sm"><FontAwesomeIcon icon={faEdit}/></Link>
+                  <Link to={`/edit/${post._id}`} className="btn btn-outline-primary btn-sm float-end"><FontAwesomeIcon icon={faEdit}/></Link>
 
                   <button
                     onClick={() => handleDelete(post._id)}  // Pass the post ID here

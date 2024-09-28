@@ -56,3 +56,10 @@ img.markdown-image-right {
   display: table;
   clear: both;
 }
+
+.sticky-element {
+  position: sticky;
+  top: 0; /* Sticks the element at the top of its container */
+  z-index: 100; /* Ensure it stays above other elements */
+  padding: 10px;
+}
