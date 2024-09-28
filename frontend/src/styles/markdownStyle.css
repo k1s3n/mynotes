@@ -26,3 +26,11 @@ img.markdown-image-right {
   margin-left: 15px;
   max-width: 20%;
 }
+
+.post-header {
+  display: flex;
+  justify-content: space-between; /* Ensures the name is on the left and the date on the right */
+  align-items: center; /* Vertically aligns items in the center */
+  margin-top: 10px;
+  margin-bottom: 20px;
+}

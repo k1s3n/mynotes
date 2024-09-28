@@ -24,9 +24,11 @@ const PostOverview = () => {
 
   if (!posts.length) return <div>Loading...</div>;
 
+
   return (
     <div>
       {posts.map((post) => {
+        const localDate = new Date(post.createdAt).toLocaleString(); // Locale-aware date and time
         // Trim content to 400 characters with "..."
         const trimmedContent = post.content.length > 400
           ? `${post.content.slice(0, 500)}...`
@@ -35,7 +37,10 @@ const PostOverview = () => {
         return (
           <div key={post._id} className="markdown-content">
             <h3 className='text-primary'>{post.title}</h3>
-
+            <div className='post-header'>
+            <span className='text-muted'>Created at: {localDate}</span>        {/* Local date on the right */}
+            <span className='text-muted'>Posted by: {post.user?.name}</span>  {/* User's name on the left */}
+          </div>
             {/* Render trimmed and sanitized HTML */}
             <div dangerouslySetInnerHTML={{ __html: convertMarkdownToHtml(trimmedContent) }} />
 

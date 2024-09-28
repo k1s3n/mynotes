@@ -10,7 +10,7 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">My DevOps Journey </Link>
+        <Link className="navbar-brand" to="/">My DevOps Journey</Link>
         {/* Toggler button for small screens */}
         <button 
           className="navbar-toggler" 
@@ -23,7 +23,6 @@ const Navbar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-         
         {/* Collapsible part of the navbar */}
         <div className="collapse navbar-collapse" id="navbarNav">
           <a className="btn btn-outline-dark btn-floating m-1" href="https://github.com/k1s3n/" target='_blank' rel="noreferrer" role="button">
