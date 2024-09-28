@@ -42,7 +42,8 @@ const EditPost = () => {
       // Update the post
       await updatePost(id, { title, content });
       setEditMessage('Post has been updated successfully!');
-      setTimeout(() => navigate(`/posts/${id}`), 2000);
+      setTimeout(() => navigate(`/`), 2000);
+      //setTimeout(() => navigate(`/posts/${id}`), 2000);
     } catch (err) {
       setError('Failed to update the post');
     }
@@ -79,7 +80,7 @@ const EditPost = () => {
             generateMarkdownPreview={() => Promise.resolve('')}  // Disable preview button
           />
         </div>
-
+        <button type="submit" className="btn btn-primary">Update Post</button>
         {/* Live Preview */}
         <div className="mb-3 markdown-content">
           <label htmlFor="preview" className="form-label">Live Preview</label>
@@ -88,7 +89,6 @@ const EditPost = () => {
           </div>
         </div>
         
-        <button type="submit" className="btn btn-primary">Update Post</button>
       </form>
     </div>
   );
