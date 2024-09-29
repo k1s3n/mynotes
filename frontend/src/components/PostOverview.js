@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef, useCallback, useContext } from 'react';
 import { getPosts } from '../services/api';
-import { convertMarkdownToHtml } from '../utils/markdownUtils';  // Import the utility
-import AuthContext from '../AuthContext';
+import { convertMarkdownToHtml } from '../utils/markdownUtils';  // Import the utility function
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit, faCancel } from '@fortawesome/free-solid-svg-icons';  // Import the trash icon
 import { getTrimmedContent, processHashtagsInHTML, handleDelete } from '../utils/postUtils';
 import { useLocation } from 'react-router-dom';
+import AuthContext from '../AuthContext';
 import '../styles/markdownStyle.css';
 
 const PostOverview = () => {

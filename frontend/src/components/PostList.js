@@ -24,14 +24,11 @@ const PostList = () => {
 
   return (
     <div>
-      <ul className='nav nav-tabs'>
-      <li class="nav-item">
-      <a class="nav-link active" aria-current="page" href="/">All posts</a>
-      </li>
+      <ul>
         {posts.map((post) => {
           const capitalizedTitle = capitalizeTitle(post.title);  // Använd capitalizeTitle
           return (
-            <li className='nav-item' key={post._id}>
+            <li key={post._id}>
               <Link to={`/posts/${post._id}`} className="nav-link">
                 {capitalizedTitle}
               </Link> 
@@ -40,8 +37,7 @@ const PostList = () => {
             </li>
           );
         })}
-        
-      </ul>
+    </ul>    
     </div>
   );
 };
