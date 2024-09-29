@@ -10,6 +10,7 @@ import EditPost from './components/EditPost';
 import { AuthProvider } from './AuthContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import PostList from './components/PostList';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
@@ -27,6 +28,7 @@ function App() {
             <Route path="/posts/:id" element={<Post />} />
             <Route path="/create" element={<CreatePost />} />
             <Route path="/edit/:id" element={<EditPost />} />
+            <Route path="/posts/postlist" element={<PostList />} />
           </Routes>
         </div>
         <Footer />

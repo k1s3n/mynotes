@@ -126,18 +126,20 @@ const PostOverview = () => {
           <div key={post._id} className="markdown-content">
             <div className='border rounded-5 p-3 mb-3 shadow'>
             <div className="d-flex justify-content-between align-items-center">
-              <h3 className='text-primary m-0'>{post.title}</h3>  {/* Added 'm-0' to remove margin */}
+              <h3 className='text-primary m-2'>{post.title}</h3>  {/* Added 'm-0' to remove margin */}
               {canEditOrDelete && (
               
                 <span>
-                  <Link to={`/edit/${post._id}`} className="btn btn-outline-primary btn-sm float-end"><FontAwesomeIcon icon={faEdit}/></Link>
-
                   <button
                     onClick={() => handleDelete(post._id)}  // Pass the post ID here
                     className="btn btn-outline-danger btn-sm ms-2 float-end"
                   >
                     <FontAwesomeIcon icon={faTrashAlt}/>
                   </button>
+
+                  <Link to={`/edit/${post._id}`} className="btn btn-outline-primary btn-sm float-end ms-1"><FontAwesomeIcon icon={faEdit}/></Link>
+
+                  
                   </span>
                 
               )}
@@ -158,7 +160,7 @@ const PostOverview = () => {
               {isTrimmed || isExpanded ? (
                 <div>
                 <button
-                  className="btn btn-secondary btn-sm read-more rounded-4"
+                  className="btn-outline-secondary btn-sm read-more rounded-2"
                   style={{ marginTop: '10px' }}
                   onClick={() => toggleExpanded(post._id)}
                 >
