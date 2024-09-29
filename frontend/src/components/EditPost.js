@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import ReactMde from 'react-mde';
 import { getPostById, updatePost } from '../services/api';
 import { convertMarkdownToHtml } from '../utils/markdownUtils';
@@ -13,7 +13,7 @@ const EditPost = () => {
   const [selectedTab, setSelectedTab] = useState('write');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const [editMessage, setEditMessage] = useState('');
+  
 
   // Fetch the post data when the component loads
   useEffect(() => {
@@ -41,8 +41,7 @@ const EditPost = () => {
 
       // Update the post
       await updatePost(id, { title, content });
-      setEditMessage('Post has been updated successfully!');
-      setTimeout(() => navigate(`/`), 2000);
+      navigate(`/`, { state: { message: 'Post has been updated successfully!' } });
       //setTimeout(() => navigate(`/posts/${id}`), 2000);
     } catch (err) {
       setError('Failed to update the post');
@@ -51,7 +50,6 @@ const EditPost = () => {
 
   return (
     <div className="container mt-5">
-      {editMessage && <div className="alert alert-success mt-3">{editMessage}</div>}
       <h1>Edit Post</h1>
 
       {error && <div className="alert alert-danger">{error}</div>}
@@ -80,7 +78,10 @@ const EditPost = () => {
             generateMarkdownPreview={() => Promise.resolve('')}  // Disable preview button
           />
         </div>
-        <button type="submit" className="btn btn-primary">Update Post</button>
+        
+        <Link to="/" className="btn btn-secondary btn-sm">Cancel</Link>
+        <button type="submit" className="btn btn-primary btn-sm">Update Post</button>
+        
         {/* Live Preview */}
         <div className="mb-3 markdown-content">
           <label htmlFor="preview" className="form-label">Live Preview</label>

@@ -38,7 +38,7 @@ const CreatePost = () => {
 
       // Försök skapa inlägget
       await createPost({ title, content });
-      navigate('/');  // Navigera till startsidan efter att inlägget har skapats
+      navigate('/', { state: { message: 'Post has been created successfully!' } });  // Navigera till startsidan efter att inlägget har skapats
     } catch (error) {
       setError('Failed to create post. Please try again.');
     }

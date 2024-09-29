@@ -35,10 +35,12 @@ const PostList = () => {
               <Link to={`/posts/${post._id}`} className="nav-link">
                 {capitalizedTitle}
               </Link> 
-                {/* Visa datumet */}     
+                {/* Visa datumet */} 
+               
             </li>
           );
         })}
+        
       </ul>
     </div>
   );
