@@ -20,6 +20,7 @@ function App() {
       <Router>
         <Header />
         <Navbar />
+        
         <div className="container-fluid mt-5">
           <Routes>
             <Route path="/" element={<Home />} />
