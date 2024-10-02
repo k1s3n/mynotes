@@ -1,0 +1,20 @@
+// Import the original Bootstrap files
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+// Override Bootstrap's colors to match your theme
+$primary: #00d4ff; // Cyan
+$secondary: #203a43; // Dark blue
+$success: #2c5364; // Teal
+$info: #00ffff; // Lighter cyan
+$warning: #ffcc00; // Optional - Yellow (for contrasts)
+$danger: #ff4d4d; // Optional - Red for error states
+$light: #f8f9fa; // Light background
+$dark: #0f2027; // Dark background
+
+// Optionally adjust body font color and background color
+$body-bg: #0f2027;  // Background color matching your header
+$body-color: #d3f9ff; // Text color matching your header text
+
+// Import Bootstrap to apply the customizations
+@import "~bootstrap/scss/bootstrap";

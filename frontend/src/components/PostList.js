@@ -1,24 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React,{} from 'react';
 import { Link } from 'react-router-dom';
-import { getPosts } from '../services/api';  // API-anrop för att hämta alla inlägg
 import { capitalizeTitle } from '../utils/utils';
 
-const PostList = () => {
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const result = await getPosts();
-        setPosts(result);
-      } catch (error) {
-        console.error('Failed to fetch posts:', error);
-      }
-    };
-
-    fetchPosts();
-  }, []);
-
+const PostList = ({posts}) => {
 
   if (!posts.length) return <div>Loading...</div>;
 

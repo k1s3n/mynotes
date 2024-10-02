@@ -21,20 +21,34 @@ export const getTrimmedContent = (content, contentLengthLimit, isExpanded) => {
     });
   };
   
-  export const handleDelete = async (postId, setPosts, setMessage) => {
+  export const handleDelete = async (postId, setPosts, setMessage, navigate) => {
     if (window.confirm('Are you sure you want to delete this post?')) {
       try {
-        await deletePost(postId);  
+        // Delete the post through API call
+        await deletePost(postId);
+  
+        // Update the state to remove the deleted post
         setPosts((prevPosts) => {
+          if (!Array.isArray(prevPosts)) {
+            console.error('prevPosts is not an array:', prevPosts);
+            return prevPosts;
+          }
+  
           const updatedPosts = prevPosts.filter((post) => post._id !== postId);
-          console.log('Updated posts after deletion:', updatedPosts);  // Debugging
+          setMessage('Post has been deleted successfully!');
           return updatedPosts;
         });
- 
-        setMessage('Post has been deleted successfully!');
+  
+        // Optionally, navigate if you want to go back to the home page after deletion
+        if (window.location.pathname === `/posts/${postId}`) {
+          setMessage('Post has been deleted successfully!');
+          setTimeout(() => navigate('/'), 1000);
+        }
       } catch (error) {
         console.error('Failed to delete the post:', error);
       }
     }
- };
- 
+  };
+  
+  
+  

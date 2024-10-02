@@ -36,7 +36,8 @@ body, html {
     padding: 0;
     margin: 0;
   }
-    
+  
+  
   /* Adjust for smaller screens */
   @media (max-width: 768px) {
     .app-container {

@@ -11,6 +11,7 @@ const CreatePost = () => {
   const [content, setContent] = useState('');  // Hanterar markdown-innehållet
   const [selectedTab, setSelectedTab] = useState('write');  // Hanterar editor-läget
   const [error, setError] = useState(null);  // För att hantera eventuella fel
+  const [message, setMessage] = useState(null);
   const navigate = useNavigate();
 
   // Konvertera markdown till HTML med Showdown
@@ -38,7 +39,10 @@ const CreatePost = () => {
 
       // Försök skapa inlägget
       await createPost({ title, content });
-      navigate('/', { state: { message: 'Post has been created successfully!' } });  // Navigera till startsidan efter att inlägget har skapats
+      setMessage('Post has been created successfully!');
+      setTimeout(() => {
+        navigate('/');
+      }, 1000);  // Navigera till startsidan efter att inlägget har skapats
     } catch (error) {
       setError('Failed to create post. Please try again.');
     }
@@ -48,10 +52,9 @@ const CreatePost = () => {
     
     <div className="container mt-5">
       <h1>Create a New Post</h1>
-
+      {message && <div className="alert alert-success">{message}</div>}
       {/* Visa eventuella fel */}
       {error && <div className="alert alert-danger">{error}</div>}
-
       <form onSubmit={handleSubmit}>
         {/* Inmatning för titel */}
         <div className="mb-3">

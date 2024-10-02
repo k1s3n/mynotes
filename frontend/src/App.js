@@ -13,14 +13,15 @@ import Footer from './components/Footer';
 import PostList from './components/PostList';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import './styles/custom-bootstrap.scss';
 
 function App() {
+  
   return (
     <AuthProvider>
-      <Router>
+      <Router> {/* Wrap everything inside the Router */}
         <Header />
         <Navbar />
-        
         <div className="container-fluid mt-5">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -37,5 +38,6 @@ function App() {
     </AuthProvider>
   );
 }
+
 
 export default App;

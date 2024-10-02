@@ -1,67 +1,84 @@
-import React, { useState, useEffect} from 'react';
-import PostList from '../components/PostList';  // Import PostList
-import PostOverview from '../components/PostOverview';  // Import PostOverview
+import React, { useState, useEffect } from 'react';
+import PostList from '../components/PostList';
+import PostOverview from '../components/PostOverview';
+import useScrollRestoration from '../hooks/useScrollRestoration';  // Custom scroll restoration hook
+import { Link } from 'react-router-dom';  // Import Link for navigation
+import { getPosts } from '../services/api';
 import '../styles/Home.css';
 
-const App = () => {
+
+const Home = () => {
+  useScrollRestoration();  // Call the hook to manage scroll position
   const [activeTab, setActiveTab] = useState(localStorage.getItem('activeTab') || 'allPosts');
+  const [posts, setPosts] = useState([]);
+  const [filteredPosts, setFilteredPosts] = useState([]);
+
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const result = await getPosts();
+        const sortedPosts = result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        setPosts(sortedPosts);
+        setFilteredPosts(sortedPosts);
+      } catch (error) {
+        console.error('Failed to fetch posts:', error);
+      }
+    };
+
+    fetchPosts();
+  }, []);
 
   // Save the active tab to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem('activeTab', activeTab);
   }, [activeTab]);
 
+
   return (
-    
     <div className="app-container">
+      <div></div>
+
+      {/* PostOverview on the left */}
+      <PostOverview />
+
+      {/* PostList on the right */}
       <div>
-      </div>
-        {/* PostOverview on the left */}
-        <PostOverview />
+        <ul className="nav nav-tabs">
+          <li className="nav-item">
+            <Link
+              className={`nav-link ${activeTab === 'allPosts' ? 'active' : ''}`}
+              onClick={() => setActiveTab('allPosts')}
+            >
+              All Posts
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link
+              className={`nav-link ${activeTab === 'top5' ? 'active' : ''}`}
+              onClick={() => setActiveTab('top5')}
+            >
+              Top 5
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link
+              className={`nav-link ${activeTab === 'latestPost' ? 'active' : ''}`}
+              onClick={() => setActiveTab('latestPost')}
+            >
+              Latest Post
+            </Link>
+          </li>
+        </ul>
 
-        {/* PostList on the right */}
-        <div>
-          <ul className="nav nav-tabs">
-            <li className="nav-item">
-              <a 
-                className={`nav-link ${activeTab === 'allPosts' ? 'active' : ''}`} 
-                aria-current="page" 
-                href="#1" 
-                onClick={() => setActiveTab('allPosts')}
-              >
-                All Posts
-              </a>
-            </li>
-            <li className="nav-item">
-              <a 
-                className={`nav-link ${activeTab === 'top5' ? 'active' : ''}`} 
-                aria-current="page" 
-                href="#2" 
-                onClick={() => setActiveTab('top5')}
-              >
-                Top 5
-              </a>
-            </li>
-            <li className="nav-item">
-              <a 
-                className={`nav-link ${activeTab === 'latestPost' ? 'active' : ''}`} 
-                aria-current="page" 
-                href="#3" 
-                onClick={() => setActiveTab('latestPost')}
-              >
-                Latest Post
-              </a>
-            </li>
-          </ul>
-
-          <div className="nav nav-tabs mt-2">
-            {activeTab === 'allPosts' && <PostList />}
-            {activeTab === 'top5' && ""}
-            {activeTab === 'latestPost' && ""}
-          </div>
+        <div className="nav nav-tabs mt-2">
+          {activeTab === 'allPosts' && <PostList posts={filteredPosts} />}
+          {activeTab === 'top5' && ""}
+          {activeTab === 'latestPost' && ""}
         </div>
+      </div>
     </div>
   );
 };
 
-export default App;
+export default Home;

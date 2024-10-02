@@ -13,6 +13,7 @@ const EditPost = () => {
   const [selectedTab, setSelectedTab] = useState('write');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const [message, setMessage] = useState(null);
   
 
   // Fetch the post data when the component loads
@@ -41,8 +42,9 @@ const EditPost = () => {
 
       // Update the post
       await updatePost(id, { title, content });
-      navigate(`/`, { state: { message: 'Post has been updated successfully!' } });
-      //setTimeout(() => navigate(`/posts/${id}`), 2000);
+      //navigate(`/`, { state: { message: 'Post has been updated successfully!' } });
+      setMessage('Post has been updated successfully!');
+      setTimeout(() => navigate(`/`), 2000);
     } catch (err) {
       setError('Failed to update the post');
     }
@@ -51,7 +53,7 @@ const EditPost = () => {
   return (
     <div className="container mt-5">
       <h1>Edit Post</h1>
-
+      {message && <div className="alert alert-success">{message}</div>}
       {error && <div className="alert alert-danger">{error}</div>}
 
       <form onSubmit={handleSubmit}>
@@ -78,7 +80,6 @@ const EditPost = () => {
             generateMarkdownPreview={() => Promise.resolve('')}  // Disable preview button
           />
         </div>
-        
         <Link to="/" className="btn btn-secondary btn-sm">Cancel</Link>
         <button type="submit" className="btn btn-primary btn-sm">Update Post</button>
         
