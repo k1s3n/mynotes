@@ -20,14 +20,14 @@ const Header = () => {
 
   const fontSize = scrollY > 100 ? '2rem' : '4rem';
   const descriptionFontSize = scrollY > 100 ? '1rem' : '1.5rem';
-  const textPosition = scrollY > 100 ? '70%' : '50%'; // Change 90% to the desired value
+  const textPosition = scrollY > 100 ? '75%' : '50%'; // Change 90% to the desired value
 
   return (
     <header className="header-background" style={headerStyle}>
       <div className="text-content" style={{ top: textPosition }}>
-        <h1 style={{ fontSize }}>#DevOps</h1>
+        <h1 style={{ fontSize }}>#DevOps Journey</h1>
         <p style={{ fontSize: descriptionFontSize }}>
-          Bringing Automation and Innovation to the Future
+        Navigating the Future of Automation and Innovation
         </p>
       </div>
     </header>
