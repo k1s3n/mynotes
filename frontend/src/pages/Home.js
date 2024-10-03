@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PostList from '../components/PostList';
 import PostOverview from '../components/PostOverview';
 import useScrollRestoration from '../hooks/useScrollRestoration';  // Custom scroll restoration hook
+import GitCommits from '../components/GitCommits';
 import { Link } from 'react-router-dom';  // Import Link for navigation
 import { getPosts } from '../services/api';
 import '../styles/Home.css';
@@ -15,6 +16,7 @@ const Home = () => {
 
 
   useEffect(() => {
+
     const fetchPosts = async () => {
       try {
         const result = await getPosts();
@@ -37,7 +39,9 @@ const Home = () => {
 
   return (
     <div className="app-container">
-      <div></div>
+      <div>
+        
+      </div>
 
       {/* PostOverview on the left */}
       <PostOverview />
@@ -58,7 +62,7 @@ const Home = () => {
               className={`nav-link ${activeTab === 'top5' ? 'active' : ''}`}
               onClick={() => setActiveTab('top5')}
             >
-              Top 5
+              Git Commits
             </Link>
           </li>
           <li className="nav-item">
@@ -73,7 +77,7 @@ const Home = () => {
 
         <div className="nav nav-tabs mt-2">
           {activeTab === 'allPosts' && <PostList posts={filteredPosts} />}
-          {activeTab === 'top5' && ""}
+          {activeTab === 'top5' && <GitCommits />}
           {activeTab === 'latestPost' && ""}
         </div>
       </div>
