@@ -48,4 +48,18 @@
         return response.data;
       };
 
+      export const getUsers = async () => {
+        const token = localStorage.getItem('token');  // Get token for authentication
+        if (!token) {
+            throw new Error('No token found');
+        }
     
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,  // Attach token to the request
+          },
+        };
+    
+        const response = await axios.get(`${API_URL}/api/posts/users`, config);  // Adjust the endpoint if necessary
+        return response.data;
+    };

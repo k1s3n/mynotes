@@ -5,6 +5,7 @@ import useScrollRestoration from '../hooks/useScrollRestoration';  // Custom scr
 import GitCommits from '../components/GitCommits';
 import { Link } from 'react-router-dom';  // Import Link for navigation
 import { getPosts } from '../services/api';
+import UsersAdmin from '../components/UsersAdmin';
 import '../styles/Home.css';
 
 
@@ -40,7 +41,7 @@ const Home = () => {
   return (
     <div className="app-container">
       <div>
-        
+        <UsersAdmin />
       </div>
 
       {/* PostOverview on the left */}

@@ -1,5 +1,5 @@
 const express = require('express');
-const { deletePost, getPosts, createPost, getPostById, updatePost } = require('../controllers/postController');
+const { deletePost, getPosts, createPost, getPostById, updatePost, getUsers } = require('../controllers/postController');
 const { protect, admin } = require('../middleware/authMiddleware');
 
 const router = express.Router();
@@ -7,6 +7,10 @@ const router = express.Router();
 router.route('/')
   .get(getPosts)
   .post(protect, createPost);  // Skapa ett nytt inlägg (skyddad rutt)
+
+router.route('/users')
+  .get(protect, admin, getUsers)
+  
 
 
 router.route('/:id')

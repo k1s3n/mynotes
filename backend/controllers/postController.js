@@ -1,4 +1,5 @@
 const Post = require('../models/Post');
+const User = require('../models/User');
 
 // Skapa ett nytt inlägg
 const createPost = async (req, res) => {
@@ -86,6 +87,15 @@ const updatePost = async (req, res) => {
   }
 };
 
+const getUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
 
 module.exports = {
   createPost,
@@ -93,4 +103,5 @@ module.exports = {
   getPostById,
   deletePost,
   updatePost,
+  getUsers,
 };
