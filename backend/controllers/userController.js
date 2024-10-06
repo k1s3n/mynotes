@@ -60,7 +60,33 @@ const loginUser = async (req, res) => {
   }
 };
 
+const getUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+
+const toggleAdminStatus = async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    user.isAdmin = !user.isAdmin;  // Toggle admin status
+    const updatedUser = await user.save();
+    res.json(updatedUser);
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+};
+
+
 module.exports = {
   registerUser,
   loginUser,
+  getUsers,
+  toggleAdminStatus,
 };
