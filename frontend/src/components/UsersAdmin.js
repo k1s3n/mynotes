@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
 import AuthContext from "../AuthContext";
 import { getUsers } from "../services/api";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const UsersAdmin = () => {
   const [users, setUsers] = useState([]);
@@ -28,22 +30,25 @@ const UsersAdmin = () => {
   if (!user.isAdmin) return <div>Access denied: You are not an admin</div>;
 
   return (
-    <div>
-      <h4>Admin: Registered Users</h4>
+    <div className="border p-3 mb-3 rounded-4 shadow">
+      <h4>Registered Users</h4>
       {error && <p style={{color: 'red'}}>{error}</p>}  {/* Show error message */}
-      <ul>
+      <ul className="list-group" style={{listStyle: 'none'}}>
         {users.length > 0 ? (
           users.map((user) => (
             <li key={user._id}>
-              <p>Name: {user.name}</p>
-              <p>Email: {user.email}</p>
-              <p>Role: {user.isAdmin ? 'Admin' : 'User'}</p>
+                <div className="p-2">
+            <span><FontAwesomeIcon icon={faUser} /> </span>
+              <span>{user.email} </span>
+              <span>{user.isAdmin ? 'Admin' : 'User'}</span>
+              </div>
             </li>
           ))
         ) : (
           <p>No users found.</p>  // Handle the case where there are no users
         )}
       </ul>
+      
     </div>
   );
 };
