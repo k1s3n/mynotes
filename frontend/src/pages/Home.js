@@ -14,6 +14,7 @@ const Home = () => {
   const [activeTab, setActiveTab] = useState(localStorage.getItem('activeTab') || 'allPosts');
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
+  const [isVisible, setIsVisible] = useState(false);
 
 
   useEffect(() => {
@@ -37,13 +38,22 @@ const Home = () => {
     localStorage.setItem('activeTab', activeTab);
   }, [activeTab]);
 
+   // Function to toggle visibility
+   const toggleVisibility = () => {
+    setIsVisible(!isVisible);
+  };
 
   return (
     <div className="app-container">
+      
       <div>
-        <UsersAdmin />
+      <button className="btn btn-primary show-hide-btn" onClick={toggleVisibility}>
+        {isVisible ? 'Hide Users' : 'Show Users'}
+      </button>
+        <div className={`toggle-div ${isVisible ? 'show' : ''}`}>
+          <UsersAdmin />
+        </div>
       </div>
-
       {/* PostOverview on the left */}
       <PostOverview />
 

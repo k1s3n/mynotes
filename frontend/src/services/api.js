@@ -60,6 +60,17 @@
           },
         };
     
-        const response = await axios.get(`${API_URL}/api/posts/users`, config);  // Adjust the endpoint if necessary
+        const response = await axios.get(`${API_URL}/api/users`, config);  // Adjust the endpoint if necessary
         return response.data;
+    };
+
+    export const toggleAdmin = async (userId) => {
+      const token = localStorage.getItem('token');
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const response = await axios.put(`${API_URL}/api/users/${userId}`, {}, config);  // Empty body for toggle
+      return response.data;
     };
