@@ -5,9 +5,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit, faCancel } from '@fortawesome/free-solid-svg-icons';
 import { getTrimmedContent, processHashtagsInHTML, handleDelete } from '../utils/postUtils';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
+import CreatePost from './CreatePost';
 import AuthContext from '../AuthContext';
 import '../styles/markdownStyle.css';
 import '../styles/custom-bootstrap.scss';
+import '../styles/Home.css';
 
 const PostOverviewPrivate = () => {
   const navigate = useNavigate();
@@ -97,78 +99,82 @@ const PostOverviewPrivate = () => {
   if (!filteredPosts.length) return <div>No posts found...</div>;
 
   return (
-    <div>
-      {selectedTag && (
-        <div className='sticky-element'>
-          <div className="alert alert-info">
-            {selectedTagMessage}  
-            <button className='btn btn-danger btn-sm float-end' onClick={() => { 
-              setFilteredPosts(posts); 
-              setSelectedTag(null); 
-              setSelectedTagMessage('');  
-            }}>
-              <FontAwesomeIcon icon={faCancel} />
-            </button>
-          </div>
-        </div>
-      )}
-
-      {message && <div className="alert alert-success mt-3">{message}</div>}
-
-      {filteredPosts.map((post, index) => {
-        const localDate = new Date(post.createdAt).toLocaleString();
-        const isExpanded = expandedPosts[post._id];
-        const canEditOrDelete = user && (user.isAdmin || user._id === post.user?._id);
-        const { trimmedContent, isTrimmed } = getTrimmedContent(post.content, contentLengthLimit, isExpanded);
-        let htmlContent = convertMarkdownToHtml(trimmedContent);
-        htmlContent = processHashtagsInHTML(htmlContent);
-        
-        return (
-
-          <div key={post._id} className="markdown-content">
-            <div className='border rounded-5 p-3 mb-3 shadow'>
-              <div className="d-flex justify-content-between align-items-center">
-                <h3 className='text-primary m-2'>{post.title}</h3>
-                {canEditOrDelete && (
-                  <span>
-                    <button
-                      onClick={() => handlePostDelete(post._id)}  // Call handlePostDelete instead of handleDelete
-                      className="btn btn-outline-danger btn-sm ms-2 float-end"
-                    >
-                      <FontAwesomeIcon icon={faTrashAlt}/>
-                    </button>
-                    <Link to={`/edit/${post._id}`} className="btn btn-outline-primary btn-sm float-end ms-1">
-                      <FontAwesomeIcon icon={faEdit}/>
-                    </Link>
-                  </span>
-                )}
-              </div>
-              <div className='post-header'>
-                <span className='text-muted'>Created at: {localDate}</span>
-              </div>
-
-              <div
-                ref={(el) => (postContentRefs.current[index] = el)}
-                dangerouslySetInnerHTML={{ __html: htmlContent }}
-              />
-              
-              <div className='clearfix'></div>
-
-              {isTrimmed || isExpanded ? (
-                <div>
-                  <button
-                    className="btn btn-primary btn-sm rounded-2"
-                    style={{margin: '10px' }}
-                    onClick={() => toggleExpanded(post._id)}
-                  >
-                    {isExpanded ? 'Show Less' : 'Read More'}
-                  </button>
-                </div>
-              ) : null}
+    <div className='app-container'>
+      <div></div>
+      <div>
+        {selectedTag && (
+          <div className='sticky-element'>
+            <div className="alert alert-info">
+              {selectedTagMessage}  
+              <button className='btn btn-danger btn-sm float-end' onClick={() => { 
+                setFilteredPosts(posts); 
+                setSelectedTag(null); 
+                setSelectedTagMessage('');  
+              }}>
+                <FontAwesomeIcon icon={faCancel} />
+              </button>
             </div>
           </div>
-        );
-      })}
+        )}
+
+        {message && <div className="alert alert-success mt-3">{message}</div>}
+
+        {filteredPosts.map((post, index) => {
+          const localDate = new Date(post.createdAt).toLocaleString();
+          const isExpanded = expandedPosts[post._id];
+          const canEditOrDelete = user && (user.isAdmin || user._id === post.user?._id);
+          const { trimmedContent, isTrimmed } = getTrimmedContent(post.content, contentLengthLimit, isExpanded);
+          let htmlContent = convertMarkdownToHtml(trimmedContent);
+          htmlContent = processHashtagsInHTML(htmlContent);
+          
+          return (
+
+            <div key={post._id} className="markdown-content">
+              <div className='border rounded-5 p-3 mb-3 shadow'>
+                <div className="d-flex justify-content-between align-items-center">
+                  <h3 className='text-primary m-2'>{post.title}</h3>
+                  {canEditOrDelete && (
+                    <span>
+                      <button
+                        onClick={() => handlePostDelete(post._id)}  // Call handlePostDelete instead of handleDelete
+                        className="btn btn-outline-danger btn-sm ms-2 float-end"
+                      >
+                        <FontAwesomeIcon icon={faTrashAlt}/>
+                      </button>
+                      <Link to={`/edit/${post._id}`} className="btn btn-outline-primary btn-sm float-end ms-1">
+                        <FontAwesomeIcon icon={faEdit}/>
+                      </Link>
+                    </span>
+                  )}
+                </div>
+                <div className='post-header'>
+                  <span className='text-muted'>Created at: {localDate}</span>
+                </div>
+
+                <div
+                  ref={(el) => (postContentRefs.current[index] = el)}
+                  dangerouslySetInnerHTML={{ __html: htmlContent }}
+                />
+                
+                <div className='clearfix'></div>
+
+                {isTrimmed || isExpanded ? (
+                  <div>
+                    <button
+                      className="btn btn-primary btn-sm rounded-2"
+                      style={{margin: '10px' }}
+                      onClick={() => toggleExpanded(post._id)}
+                    >
+                      {isExpanded ? 'Show Less' : 'Read More'}
+                    </button>
+                  </div>
+                ) : null}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div></div>
     </div>
   );
 };
