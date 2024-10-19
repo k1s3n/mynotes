@@ -45,7 +45,7 @@ const UsersAdmin = () => {
   };
 
   if (!user) return <div></div>;
-  if (!user.isAdmin) return <div>Access denied: You are not an admin</div>;
+  if (!user.isAdmin) return <div></div>;
 
   return (
     <div className="border p-3 mb-3 rounded-4 shadow">

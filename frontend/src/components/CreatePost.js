@@ -12,17 +12,18 @@ const CreatePost = () => {
   const [selectedTab, setSelectedTab] = useState('write');  // Hanterar editor-läget
   const [error, setError] = useState(null);  // För att hantera eventuella fel
   const [message, setMessage] = useState(null);
+  const [isPrivate, setIsPrivate] = useState(null);
   const navigate = useNavigate();
-
+  const isAdmin = localStorage.getItem('isAdmin') === 'true';
   // Konvertera markdown till HTML med Showdown
   const converter = new Showdown.Converter();
 
   // Kontrollera om användaren är admin och inloggad, annars navigera bort
   useEffect(() => {
     const token = localStorage.getItem('token');
-    const isAdmin = localStorage.getItem('isAdmin') === 'true';
+    //
 
-    if (!token || !isAdmin) {
+    if (!token) {
       navigate('/');  // Skicka icke-admin eller icke-inloggad användare till startsidan
     }
   }, [navigate]);
@@ -38,7 +39,7 @@ const CreatePost = () => {
       }
 
       // Försök skapa inlägget
-      await createPost({ title, content });
+      await createPost({ title, content, private: isPrivate });
       setMessage('Post has been created successfully!');
       setTimeout(() => {
         navigate('/');
@@ -47,6 +48,7 @@ const CreatePost = () => {
       setError('Failed to create post. Please try again.');
     }
   };
+
 
   return (
     
@@ -80,6 +82,20 @@ const CreatePost = () => {
             generateMarkdownPreview={() => Promise.resolve('')}  // Inaktivera preview-knappen
           />
         </div>
+        {/* Checkbox för privat inlägg */}
+        {isAdmin && (
+          <div className="mb-3 form-check">
+            <input 
+              type="checkbox" 
+              className="form-check-input" 
+              id="isPrivate" 
+              checked={isPrivate} 
+              onChange={(e) => setIsPrivate(e.target.checked)} 
+            />
+            <label className="form-check-label" htmlFor="isPrivate">Make this post private</label>
+          </div>
+        )}
+
 
         {/* Live-förhandsgranskning direkt under textfältet */}
         <div className="mb-3 markdown-content">

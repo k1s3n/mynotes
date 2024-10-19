@@ -36,7 +36,7 @@ const PostOverviewPrivate = () => {
         const sortedPosts = result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         console.log("Sorted posts", sortedPosts);
         // Filter only posts where the logged-in user is the owner
-        const userPosts = sortedPosts.filter(post => post.user?._id === user._id);
+        const userPosts = sortedPosts.filter(post => post.user?._id === user._id && post.private === true);
         console.log("User id", user._id);
         console.log("User post", userPosts);
         setPosts(userPosts);
@@ -114,7 +114,7 @@ const PostOverviewPrivate = () => {
       {filteredPosts.map((post, index) => {
         const localDate = new Date(post.createdAt).toLocaleString();
         const isExpanded = expandedPosts[post._id];
-        const canEditOrDelete = user && (user.isAdmin || user._id === post.user);
+        const canEditOrDelete = user && (user.isAdmin || user._id === post.user?._id);
         const { trimmedContent, isTrimmed } = getTrimmedContent(post.content, contentLengthLimit, isExpanded);
         let htmlContent = convertMarkdownToHtml(trimmedContent);
         htmlContent = processHashtagsInHTML(htmlContent);

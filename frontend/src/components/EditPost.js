@@ -12,8 +12,10 @@ const EditPost = () => {
   const [content, setContent] = useState('');
   const [selectedTab, setSelectedTab] = useState('write');
   const [error, setError] = useState(null);
+  const [isPrivate, setIsPrivate] = useState(null);
   const navigate = useNavigate();
   const [message, setMessage] = useState(null);
+  const isAdmin = localStorage.getItem('isAdmin') === 'true';
   
 
   // Fetch the post data when the component loads
@@ -23,6 +25,7 @@ const EditPost = () => {
         const post = await getPostById(id);
         setTitle(post.title);
         setContent(post.content);
+        setIsPrivate(post.private);
       } catch (err) {
         setError('Failed to load the post');
       }
@@ -41,7 +44,7 @@ const EditPost = () => {
       }
 
       // Update the post
-      await updatePost(id, { title, content });
+      await updatePost(id, { title, content, private: isPrivate });
       //navigate(`/`, { state: { message: 'Post has been updated successfully!' } });
       setMessage('Post has been updated successfully!');
       setTimeout(() => navigate(`/`), 2000);
@@ -80,6 +83,21 @@ const EditPost = () => {
             generateMarkdownPreview={() => Promise.resolve('')}  // Disable preview button
           />
         </div>
+        {isAdmin && (
+        <div className="mb-3 form-check">
+          <input 
+            value={isPrivate}
+            type="checkbox" 
+            className="form-check-input" 
+            id="isPrivate" 
+            checked={isPrivate} 
+            onChange={(e) => setIsPrivate(e.target.checked)} 
+          />
+          <label className="form-check-label" htmlFor="isPrivate">Make this post private</label>
+        </div>
+        )}
+
+
         <Link to="/" className="btn btn-secondary btn-sm">Cancel</Link>
         <button type="submit" className="btn btn-primary btn-sm">Update Post</button>
         

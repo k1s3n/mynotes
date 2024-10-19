@@ -2,16 +2,18 @@ const Post = require('../models/Post');
 
 // Skapa ett nytt inlägg
 const createPost = async (req, res) => {
-  const { title, content } = req.body;
+  const { title, content} = req.body;
 
   try {
+    //const isPrivate = private === 'true' || private === true; // Kontrollera både sträng och boolean
+    const isAdmin = req.user && req.user.isAdmin;
+
     const newPost = new Post({
       title,
       content,
-      private: req.body.private || false,
-      user: req.user._id,  // Koppla till administratören
+      private: isAdmin ? req.body.private || false : true, // Om användaren inte är admin, sätt private till true
+      user: req.user._id,  // Koppla till administratören eller användaren
     });
-
     await newPost.save();
     res.status(201).json(newPost);
   } catch (error) {
@@ -68,7 +70,7 @@ const deletePost = async (req, res) => {
 // Uppdatera ett inlägg (PUT)
 const updatePost = async (req, res) => {
   try {
-    const { title, content } = req.body;  // Hämta titel och innehåll från request body
+    const { title, content, private } = req.body;  // Hämta titel och innehåll från request body
     const post = await Post.findById(req.params.id);  // Hitta inlägget med det givna ID:t
 
     if (!post) {
@@ -78,7 +80,7 @@ const updatePost = async (req, res) => {
     // Uppdatera inläggets titel och innehåll
     post.title = title;
     post.content = content;
-    post.private = req.body.private || false;
+    post.private = private;
 
     // Spara uppdateringarna
     const updatedPost = await post.save();

@@ -32,16 +32,15 @@ const Navbar = () => {
             <FontAwesomeIcon icon={faLinkedin} />
           </a>
           <ul className="navbar-nav ms-auto">
-            {user && user.isAdmin && (
-              <li className="nav-item">
-                <Link className="nav-link" to="/create">Create Post</Link>
-              </li>
-            )}
             {user && (
-        
+              <>
+              <li className="nav-item">
+              <Link className="nav-link" to="/create">Create Post</Link>
+              </li>
               <li className="nav-item">
               <Link className="nav-link" to="/posts/private">Private Post</Link>
             </li>
+            </>
             )}
             {!user ? (
               <>

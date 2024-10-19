@@ -22,7 +22,8 @@ const Home = () => {
     const fetchPosts = async () => {
       try {
         const result = await getPosts();
-        const sortedPosts = result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        const publicPosts = result.filter(post => post.private === false);
+        const sortedPosts = publicPosts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setPosts(sortedPosts);
         setFilteredPosts(sortedPosts);
       } catch (error) {
