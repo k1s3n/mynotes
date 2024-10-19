@@ -12,6 +12,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import PostList from './components/PostList';
 import UsersAdmin from './components/UsersAdmin';
+import PostOverviewPrivate from './components/PostOverviewPrivate';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
@@ -30,6 +31,7 @@ function App() {
             <Route path="/posts/:id" element={<Post />} />
             <Route path="/create" element={<CreatePost />} />
             <Route path="/edit/:id" element={<EditPost />} />
+            <Route path="/posts/private" element={<PostOverviewPrivate />} />
             <Route path="/posts/postlist" element={<PostList />} />
             <Route Path="/admin" element={<UsersAdmin />} />
           </Routes>

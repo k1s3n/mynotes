@@ -8,6 +8,7 @@ const createPost = async (req, res) => {
     const newPost = new Post({
       title,
       content,
+      private: req.body.private || false,
       user: req.user._id,  // Koppla till administratören
     });
 
@@ -77,6 +78,7 @@ const updatePost = async (req, res) => {
     // Uppdatera inläggets titel och innehåll
     post.title = title;
     post.content = content;
+    post.private = req.body.private || false;
 
     // Spara uppdateringarna
     const updatedPost = await post.save();

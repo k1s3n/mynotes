@@ -13,16 +13,17 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/users/login`, { email, password });
-      const { token, name, email: emailFromResponse, isAdmin } = response.data;
+      const { token, name, email: emailFromResponse, isAdmin, _id } = response.data;
 
       // Spara i localStorage
       localStorage.setItem('token', token);
       localStorage.setItem('name', name);
       localStorage.setItem('email', emailFromResponse);
       localStorage.setItem('isAdmin', isAdmin);
+      localStorage.setItem('_id', _id);
 
       // Uppdatera användartillståndet
-      login({ name, email: emailFromResponse, isAdmin });
+      login({ name, email: emailFromResponse, _id, isAdmin });
 
       // Navigera tillbaka till startsidan
       navigate('/');

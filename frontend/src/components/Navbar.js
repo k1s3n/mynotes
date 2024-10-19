@@ -37,6 +37,12 @@ const Navbar = () => {
                 <Link className="nav-link" to="/create">Create Post</Link>
               </li>
             )}
+            {user && (
+        
+              <li className="nav-item">
+              <Link className="nav-link" to="/posts/private">Private Post</Link>
+            </li>
+            )}
             {!user ? (
               <>
                 <li className="nav-item">

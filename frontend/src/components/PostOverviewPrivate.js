@@ -1,16 +1,15 @@
 import React, { useEffect, useState, useRef, useCallback, useContext } from 'react';
 import { getPosts } from '../services/api';
 import { convertMarkdownToHtml } from '../utils/markdownUtils';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit, faCancel } from '@fortawesome/free-solid-svg-icons';
 import { getTrimmedContent, processHashtagsInHTML, handleDelete } from '../utils/postUtils';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import AuthContext from '../AuthContext';
 import '../styles/markdownStyle.css';
 import '../styles/custom-bootstrap.scss';
 
-const PostOverview = () => {
+const PostOverviewPrivate = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const postContentRefs = useRef([]);
@@ -35,15 +34,22 @@ const PostOverview = () => {
       try {
         const result = await getPosts();
         const sortedPosts = result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        setPosts(sortedPosts);
-        setFilteredPosts(sortedPosts);
-        console.log(user);
+        console.log("Sorted posts", sortedPosts);
+        // Filter only posts where the logged-in user is the owner
+        const userPosts = sortedPosts.filter(post => post.user?._id === user._id);
+        console.log("User id", user._id);
+        console.log("User post", userPosts);
+        setPosts(userPosts);
+        setFilteredPosts(userPosts);
       } catch (error) {
         console.error('Failed to fetch posts:', error);
       }
     };
-    fetchPosts();
-  }, []);
+    if (user) { // Ensure the user is logged in before fetching posts
+      fetchPosts();
+    }
+  }, [user]);
+  
 
   const handleHashtagClick = useCallback((tag) => {
     setSelectedTagMessage(`Showing posts tagged with #${tag}`);
@@ -114,6 +120,7 @@ const PostOverview = () => {
         htmlContent = processHashtagsInHTML(htmlContent);
         
         return (
+
           <div key={post._id} className="markdown-content">
             <div className='border rounded-5 p-3 mb-3 shadow'>
               <div className="d-flex justify-content-between align-items-center">
@@ -162,4 +169,4 @@ const PostOverview = () => {
   );
 };
 
-export default PostOverview;
+export default PostOverviewPrivate;

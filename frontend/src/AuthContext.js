@@ -12,12 +12,14 @@ export const AuthProvider = ({ children }) => {
       const name = localStorage.getItem('name');
       const email = localStorage.getItem('email');
       const isAdmin = localStorage.getItem('isAdmin') === 'true';
-      setUser({ name, email, isAdmin });
+      const _id = localStorage.getItem('_id');
+      setUser({ name, email, isAdmin, _id });
     }
   }, []);
 
   const login = (userData) => {
     setUser(userData);
+    console.log('Received userData:', userData);
   };
 
   const logout = () => {
