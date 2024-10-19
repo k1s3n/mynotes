@@ -38,7 +38,6 @@ const PostOverview = () => {
         const sortedPosts = publicPosts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setPosts(sortedPosts);
         setFilteredPosts(sortedPosts);
-        console.log(user);
       } catch (error) {
         console.error('Failed to fetch posts:', error);
       }

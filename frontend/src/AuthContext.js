@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = (userData) => {
     setUser(userData);
-    console.log('Received userData:', userData);
+    //console.log('Received userData:', userData);
   };
 
   const logout = () => {

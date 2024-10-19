@@ -34,6 +34,13 @@ const EditPost = () => {
     fetchPost();
   }, [id]);
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/');  // Skicka icke-inloggad användare till startsidan
+    }
+  }, [navigate]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 

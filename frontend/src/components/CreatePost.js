@@ -18,13 +18,11 @@ const CreatePost = () => {
   // Konvertera markdown till HTML med Showdown
   const converter = new Showdown.Converter();
 
-  // Kontrollera om användaren är admin och inloggad, annars navigera bort
+  // Kontrollera om användaren är inloggad, annars navigera bort
   useEffect(() => {
     const token = localStorage.getItem('token');
-    //
-
     if (!token) {
-      navigate('/');  // Skicka icke-admin eller icke-inloggad användare till startsidan
+      navigate('/');  // Skicka icke-inloggad användare till startsidan
     }
   }, [navigate]);
 

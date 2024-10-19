@@ -30,15 +30,19 @@ const PostOverviewPrivate = () => {
   }, [location.state]);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/');  // Skicka icke-inloggad användare till startsidan
+    }
+  }, [navigate]);
+
+  useEffect(() => {
     const fetchPosts = async () => {
       try {
         const result = await getPosts();
         const sortedPosts = result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        console.log("Sorted posts", sortedPosts);
         // Filter only posts where the logged-in user is the owner
         const userPosts = sortedPosts.filter(post => post.user?._id === user._id && post.private === true);
-        console.log("User id", user._id);
-        console.log("User post", userPosts);
         setPosts(userPosts);
         setFilteredPosts(userPosts);
       } catch (error) {
