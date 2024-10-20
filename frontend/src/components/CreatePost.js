@@ -40,7 +40,11 @@ const CreatePost = () => {
       await createPost({ title, content, private: isPrivate });
       setMessage('Post has been created successfully!');
       setTimeout(() => {
-        navigate('/');
+        if (isPrivate || !isAdmin) {
+          navigate('/posts/private');
+        } else {
+          navigate('/');
+        }
       }, 1000);  // Navigera till startsidan efter att inlägget har skapats
     } catch (error) {
       setError('Failed to create post. Please try again.');

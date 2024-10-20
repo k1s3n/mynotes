@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit, faCancel } from '@fortawesome/free-solid-svg-icons';
 import { getTrimmedContent, processHashtagsInHTML, handleDelete } from '../utils/postUtils';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
-import CreatePost from './CreatePost';
 import AuthContext from '../AuthContext';
 import '../styles/markdownStyle.css';
 import '../styles/custom-bootstrap.scss';
