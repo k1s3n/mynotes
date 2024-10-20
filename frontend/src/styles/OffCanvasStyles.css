@@ -6,7 +6,7 @@
   
   /* Override default backdrop to be more transparent */
   .offcanvas-backdrop {
-    background-color: rgba(0, 0, 0, 0.2) !important; /* Set backdrop to a lighter color */
+    background-color: rgba(0, 0, 0, 0.623) !important; /* Set backdrop to a lighter color */
   }
   
   @media (max-width: 768px) {
@@ -14,3 +14,14 @@
       width: 20%; /* Gör den bredare på mindre skärmar */
     }
   }
+
+  /* För större skärmar */
+@media (min-width: 992px) {
+  .custom-offcanvas {
+    width: 300px !important; /* Ange en fast bredd för stora skärmar */
+    border-radius: 3; /* Anpassa rundningen om det behövs */
+  }
+  
+}
+
+ 

@@ -50,11 +50,21 @@ const EditPost = () => {
         return;
       }
 
+      const updatedPost = { title, content, private: isPrivate };
       // Update the post
-      await updatePost(id, { title, content, private: isPrivate });
+      await updatePost(id, updatedPost);
       //navigate(`/`, { state: { message: 'Post has been updated successfully!' } });
       setMessage('Post has been updated successfully!');
-      setTimeout(() => navigate(`/`), 2000);
+
+      const currentPrivateStatus = isPrivate;
+
+      setTimeout(() => {
+        if (currentPrivateStatus) {
+          navigate('/posts/private');
+        } else {
+          navigate('/');
+        }
+      }, 2000);
     } catch (err) {
       setError('Failed to update the post');
     }

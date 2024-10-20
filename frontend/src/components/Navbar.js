@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons'; // Import brand icons
-import { faNavicon, faSignOutAlt, faSigning, faSignIn, faUserLock, faAdd } from '@fortawesome/free-solid-svg-icons';
+import { faNavicon, faSignOutAlt, faSigning, faSignIn, faUserLock, faAdd , faUser} from '@fortawesome/free-solid-svg-icons';
 
 // Import Bootstrap JavaScript and Offcanvas component
 import 'bootstrap/dist/js/bootstrap.bundle.min';
@@ -67,78 +67,30 @@ const Navbar = () => {
       <nav className="navbar navbar-light bg-light">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">My DevOps Journey</Link>
-          
 
-          {/* Off-canvas toggle button for small screens */}
+          {/* Off-canvas toggle button for all screens */}
           <button 
-            className="btn btn-light btn-lg d-lg-none" 
+            className="btn btn-light btn-lg d-lg-block" 
             type="button" 
             data-bs-toggle="offcanvas" 
             data-bs-target="#offcanvasRight" 
             aria-controls="offcanvasRight"
           >
-            <FontAwesomeIcon icon={faNavicon} />
-          </button>
-
-          {/* Navbar links for larger screens */}
-          <div className="d-none d-lg-flex ms-auto me-5 ml-5">
-            <div className="nav-item dropdown">
-              <button 
-                className="btn btn-light btn-lg dropdown-toggle" 
-                type="button" 
-                id="dropdownMenuButton1" 
-                data-bs-toggle="dropdown" 
-                aria-expanded="false"
-              >
-                Menu <FontAwesomeIcon icon={faNavicon} />
-              </button>
-              <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                {user ? (
-                  <>
-                    <li>
-                      <Link className="dropdown-item" to="/create"> <FontAwesomeIcon icon={faSigning} /> Create Post</Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" to="/posts/private"><FontAwesomeIcon icon={faUserLock} /> Private Post</Link>
-                    </li>
-                    <li>
-                      <button
-                        className="dropdown-item btn btn-light"
-                        onClick={(e) => {
-                          logout();
-                          handleLinkClick('/', e); // Redirect to home after logout
-                        }}
-                      >
-                        <FontAwesomeIcon icon={faSignOutAlt} /> Logout
-                      </button>
-                    </li>
-                  </>
-                ) : (
-                  <>
-                    <li>
-                      <button 
-                        className="dropdown-item btn btn-light" 
-                        onClick={(e) => handleLinkClick('/register', e)}
-                      >
-                        <FontAwesomeIcon icon={faAdd} /> Register
-                      </button>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" to="/login"><FontAwesomeIcon icon={faSignIn} /> Login</Link>
-                    </li>
-                  </>
-                )}
+            {user ? (
               
-              </ul>
-            </div>
-          </div>
-
+              <FontAwesomeIcon icon={faUser} />
+              ): (
+            
+              <FontAwesomeIcon icon={faNavicon} />
+            
+              )}
+          </button>
         </div>
       </nav>
 
-      {/* Off-canvas menu for small screens */}
+      {/* Off-canvas menu for all screens */}
       <div 
-        className="offcanvas offcanvas-end custom-offcanvas" 
+        className="offcanvas offcanvas-end custom-offcanvas small" 
         tabIndex="-1" 
         id="offcanvasRight" 
         aria-labelledby="offcanvasRightLabel"
@@ -146,11 +98,11 @@ const Navbar = () => {
       >
         <div className="offcanvas-header">
           <h5 className="offcanvas-title" id="offcanvasRightLabel">Menu</h5>
+          
           <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div className="offcanvas-body">
+        <div className="offcanvas-body small">
           <ul className="navbar-nav">
-
             {user ? (
               <>
                 <li className="nav-item">
@@ -174,6 +126,7 @@ const Navbar = () => {
               </>
             ) : (
               <>
+            
                 <li className="nav-item">
                   <button className="nav-link btn btn-light w-100" onClick={(e) => handleLinkClick('/register', e)}><FontAwesomeIcon icon={faAdd} /> Register</button>
                 </li>
@@ -183,7 +136,7 @@ const Navbar = () => {
               </>
             )}
             <li><hr className="nav-divider" /></li>
-             <li className="nav-item">
+            <li className="nav-item">
               <a className="nav-link btn btn-light w-100" href="https://github.com/k1s3n/" target='_blank' rel="noreferrer">
                 <FontAwesomeIcon icon={faGithub} /> GitHub
               </a>
